@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Débora</title>
     <!-- Fontes elegantes -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #121212;
@@ -99,6 +99,8 @@
             transition: all 0.4s ease;
             width: 100%;
             outline: none;
+            display: inline-block;
+            text-decoration: none;
         }
 
         .btn-next:hover, .btn-next:active {
@@ -129,6 +131,7 @@
             width: 0%;
             transition: width 0.6s ease;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            z-index: 1000;
         }
     </style>
 </head>
@@ -175,29 +178,25 @@
             <button class="btn-next" onclick="nextStep(6)">Avançar ➔</button>
         </div>
 
-  
+        <!-- Tela 7 -->
         <div class="card" id="step7">
-            <p>Hoje é um dia especial e muito simbólico, uma virada de "chave" para você que tá entrando nos 30 anos.</p>
-            <button class="btn-next" onclick="nextStep(8)">Avançar ➔</button>
-        </div>
-
-        <!-- Tela 8 -->
-        <div class="card" id="step8">
             <p>Pensei em esperar um momento "especial", um lugar diferente. Mas entendi que o melhor lugar é onde construímos nossa vida todo dia. Onde enfrentamos as dificuldades e onde mais nos amamos, no nosso lar!</p>
-            <button class="btn-next" onclick="nextStep(7)">Avançar ➔</button>
+            <button class="btn-next" onclick="nextStep(7)">Ver Nossa Memória ➔</button>
         </div>
 
-
-        <!-- Tela 9 (Final) -->
-        <div class="card" id="step9">
-
-            
-            <!-- Espaço para o Vídeo ou Foto Final -->
+        <!-- Tela 8 (Nova Tela para Foto/Vídeo) -->
+        <div class="card" id="step8">
+            <!-- Espaço para o Vídeo ou Foto -->
             <div class="media-container">
-                <!-- Se for usar imagem, troque o src. Se for vídeo, substitua a tag <img> por <video> -->
+                <!-- Se for usar imagem, troque o src. Se for vídeo, substitua a tag <img> por <video controls> -->
                 <img src="foto.jpeg" alt="Nossas Memórias">
             </div>
+            <button class="btn-next" onclick="nextStep(8)">Continuar ➔</button>
+        </div>
 
+        <!-- Tela 9 (Pedido Final) -->
+        <div class="card" id="step9">
+            <h1>Débora</h1>
             <p style="margin-bottom: 20px;">Você aceita casar comigo mais uma vez? E mais outras várias vezes, quantas forem preciso?!</p>
             <button class="btn-next" style="background: var(--accent-color); color: var(--bg-color);" onclick="finalStep()">Olhe para mim</button>
         </div>
@@ -205,7 +204,7 @@
     </div>
 
     <script>
-        // Total de telas para calcular a barra de progresso
+        // Total de telas para calcular a barra de progresso (agora são 9)
         const totalSteps = 9; 
 
         function nextStep(currentStep) {
@@ -213,6 +212,8 @@
             const nextCard = document.getElementById('step' + (currentStep + 1));
             const progress = document.getElementById('progress');
             
+            if (!currentCard || !nextCard) return; // Segurança caso os IDs estejam errados
+
             // Atualiza barra de progresso (calcula a % preenchida)
             progress.style.width = (currentStep / (totalSteps - 1) * 100) + '%';
 
@@ -221,18 +222,16 @@
             currentCard.classList.remove('active');
 
             // Transição de entrada do próximo card
-            if (nextCard) {
-                setTimeout(() => {
-                    nextCard.classList.add('active');
-                }, 400); // Sincronizado com o CSS para uma troca elegante
-            }
+            setTimeout(() => {
+                nextCard.classList.add('active');
+            }, 400); // Sincronizado com o CSS para uma troca elegante
         }
 
-        // Função extra para o último botão (se quiser adicionar algum efeito final)
         function finalStep() {
-            const progress = document.getElementById('progress');
-            progress.style.width = '100%';
-            // Aqui o ideal é que ela feche o celular e olhe para você, então não precisa de mais telas.
+            // Função para o último botão, caso queira adicionar algo extra,
+            // como tocar uma música final ou redirecionar.
+            // No momento, apenas mantém a tela.
+            console.log("Pedido finalizado. Hora de ajoelhar!");
         }
     </script>
 </body>
